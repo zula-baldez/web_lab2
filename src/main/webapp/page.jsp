@@ -288,15 +288,13 @@
 </main>
 
 
-<script type="text/javascript">
-    <%@include file="./src/validator.js"%>
-</script>
+<script type="text/javascript" src = "./src/validator.js"></script>
 
 
 <script type="text/javascript">
     function drawDots() {
         <%@include file="./src/grapher.js"%>
-/*        <%
+        /*        <%
           if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
               request.setAttribute("xList", "[]");
               request.setAttribute("yList", "[]");
@@ -323,16 +321,12 @@
         for (let i = 0; i < x.length; i++) {
             let realX = width / 2 + x[i] / (realR * 3 / 2) * width / 2
             let realY = height / 2 - y[i] / (realR * 3 / 2) * height / 2
-
             ctx.moveTo(realX, realY)
             ctx.arc(realX, realY, 5, 0, Math.PI * 2)
             ctx.fill()
-
         }
     }
-
     drawDots()
-
 </script>
 
 

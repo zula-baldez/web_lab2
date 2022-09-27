@@ -139,7 +139,7 @@ canvas.onmousedown = (e) => {
     let formData = new FormData(form)
     if(!formData.has('r') || formData.get('r') === 0) {
         alert('First enter R')
-        return;
+        return
     } else {
         var r = formData.get('r')
     }
@@ -170,6 +170,5 @@ canvas.onmousedown = (e) => {
     }
     form.submit()
 }
-
 
 drawGraph()
