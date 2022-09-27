@@ -9,6 +9,9 @@ const markWidth = 5
 const arrowSize = 5
 const rSize = 60
 const figureColor = '#39f'
+
+
+const baseUrl = "http://localhost:8080/WILDFLY_LAB2-1.0-SNAPSHOT"
 function drawGraph() {
 
     drawFigure()
@@ -136,6 +139,7 @@ canvas.onmousedown = (e) => {
     let formData = new FormData(form)
     if(!formData.has('r') || formData.get('r') === 0) {
         alert('First enter R')
+        return;
     } else {
         var r = formData.get('r')
     }
@@ -154,6 +158,8 @@ canvas.onmousedown = (e) => {
     }
 
 
+
+
     form['x'].value = x;
 
     form['y'].value = y;
@@ -164,8 +170,6 @@ canvas.onmousedown = (e) => {
     }
     form.submit()
 }
-
-
 
 
 drawGraph()

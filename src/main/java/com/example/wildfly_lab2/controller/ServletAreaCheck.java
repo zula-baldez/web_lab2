@@ -1,7 +1,9 @@
-package com.example.wildfly_lab2.model;
+package com.example.wildfly_lab2.controller;
 
-import com.example.wildfly_lab2.beans.TableBean;
+import com.example.wildfly_lab2.model.TableBean;
+import com.example.wildfly_lab2.util.RequestParamsConfigurer;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,25 +14,18 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//Validator?
 @WebServlet(name = "ServletAreaCheck", value = "/hit_handler")
 public class ServletAreaCheck extends HttpServlet {
-
-    private final TableBean tableBean = new TableBean();
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    @EJB
+    private TableBean tableBean;
+    @EJB
+    private RequestParamsConfigurer requestParamsConfigurer;
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         long startTimeInNano = System.nanoTime();
         Date startTime = new Date();
-        if (request.getParameter("r") == null) {
-            response.getWriter().write("Enter r first");
-            return;
-        }
-        if (request.getParameter("x") == null) {
-            response.getWriter().write("Enter x first");
-            return;
-        }
-        if (request.getParameter("y") == null) {
-            response.getWriter().write("Enter y first");
+        if(!checkRequest(request, response)) {
             return;
         }
         double x;
@@ -49,14 +44,13 @@ public class ServletAreaCheck extends HttpServlet {
         }
 
         boolean hit = checkHit(x, y, r);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         tableBean.addAttempt(Double.parseDouble(request.getParameter("x")),
                 Double.parseDouble(request.getParameter("y")),
                 Double.parseDouble(request.getParameter("r")),
                 hit,
                 Long.toString((System.nanoTime() - startTimeInNano)/1000),
                 simpleDateFormat.format(startTime));
-        request.setAttribute("bean", tableBean);
+        requestParamsConfigurer.configParams(tableBean, request);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
         requestDispatcher.forward(request, response);
     }
@@ -67,6 +61,21 @@ public class ServletAreaCheck extends HttpServlet {
         if (x >= -r / 2 && x <= 0 && y >= 0 && y <= r) return true;
         if (x <= 0 && y <= 0 && x*x + y*y <= r*r) return true;
         return  false;
+    }
+    public boolean checkRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getParameter("r") == null) {
+            response.getWriter().write("Enter r first");
+            return false;
+        }
+        if (request.getParameter("x") == null) {
+            response.getWriter().write("Enter x first");
+            return false;
+        }
+        if (request.getParameter("y") == null) {
+            response.getWriter().write("Enter y first");
+            return false;
+        }
+        return true;
     }
 
 }

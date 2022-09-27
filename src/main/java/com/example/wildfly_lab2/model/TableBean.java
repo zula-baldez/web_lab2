@@ -1,10 +1,11 @@
-package com.example.wildfly_lab2.beans;
+package com.example.wildfly_lab2.model;
 
+import javax.ejb.Singleton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Singleton
 public class TableBean implements Serializable {
     private final List<Double> x = new ArrayList<>();
     private final List<Double> y = new ArrayList<>();
@@ -12,9 +13,7 @@ public class TableBean implements Serializable {
     private final List<Boolean> hit = new ArrayList<>() ;
     private final List<String> workTime = new ArrayList<>();
     private final List<String> startTime = new ArrayList<>();
-    public TableBean () {
 
-    }
     public void addAttempt(double x, double y, double r, boolean hit, String workTime, String startTime) {
         this.x.add(x);
         this.y.add(y);

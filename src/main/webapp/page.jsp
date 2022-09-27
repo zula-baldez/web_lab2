@@ -1,16 +1,11 @@
 <%@ page import="com.google.gson.Gson" %>
-<%@ page import="com.example.wildfly_lab2.beans.TableBean" %>
-<jsp:useBean id="bean" class="com.example.wildfly_lab2.beans.TableBean" scope="request"/>
+<jsp:useBean id="bean" class="com.example.wildfly_lab2.model.TableBean" scope="request"/>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>weblab_2</title>
-    <header class="header">
-        <h1>Egor Vereshchagin, P32312</h1>
-        <h2>var. 6663121</h2>
-    </header>
     <style>
         :root {
             font-size: 20px;
@@ -23,7 +18,7 @@
             padding: 0;
         }
 
-        .main {
+        main {
             padding: 10px;
             text-align: center;
         }
@@ -77,7 +72,7 @@
             position: relative;
             width: 360px;
             height: 360px;
-            padding: 0px 0px 0px 0px;
+            padding: 0 0 0 0;
             margin: 30px auto auto;
             align-items: center;
             display: flex;
@@ -86,11 +81,11 @@
 
         #graph {
             position: absolute;
-            left: 0px;
-            right: 0px;
-            top: 0px;
-            bottom: 0px;
-            padding: 0px 0px 0px 0px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding: 0 0 0 0;
             cursor: pointer;
             margin: 5px;
             border-radius: 10px;
@@ -122,7 +117,7 @@
         }
 
         input[type="radio"] {
-            margin: 0px 20px;
+            margin: 0 20px;
         }
 
         input[type="text"] {
@@ -131,10 +126,6 @@
 
         h2::first-line, h1::first-line, .warning {
             color: #F6F836;
-        }
-
-        .graph-back:hover, table:hover {
-            box-shadow: 15px 5px rgba(0, 255, 255, 0.5);
         }
 
         h1, h2 {
@@ -168,8 +159,11 @@
 </head>
 
 <body>
-<main></main>
-<div class="main">
+<header>
+    <h1>Egor Vereshchagin, P32312</h1>
+    <h2>var. 6663121</h2>
+</header>
+<main>
     <div class="rainbow-box">
         <div class="card">
             <div id="graph-back"></div>
@@ -263,8 +257,7 @@
                 <td>Start time</td>
             </tr>
 
-            <%!
-
+<%--            <%!
                 String printTable(TableBean tableBean) {
                     StringBuilder stringBuilder = new StringBuilder();
                     if (tableBean != null)
@@ -282,14 +275,17 @@
                     return stringBuilder.toString();
                 }
             %>
-            <%= printTable(bean) %>
+            <%= printTable(bean) %>--%>
+
+
+            <%= request.getAttribute("table").toString() %>
 
         </table>
 
 
     </div>
 
-</div>
+</main>
 
 
 <script type="text/javascript">
@@ -300,21 +296,17 @@
 <script type="text/javascript">
     function drawDots() {
         <%@include file="./src/grapher.js"%>
-
-        <%
-
-            if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
-                request.setAttribute("xList", "[]");
-                request.setAttribute("yList", "[]");
-                request.setAttribute("rList", "[]");
-            } else {
-                request.setAttribute("xList", new Gson().toJson(bean.getX()));
-                request.setAttribute("yList", new Gson().toJson(bean.getY()));
-                request.setAttribute("rList", new Gson().toJson(bean.getR()));
-
-            }
-        %>
-
+/*        <%
+          if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
+              request.setAttribute("xList", "[]");
+              request.setAttribute("yList", "[]");
+              request.setAttribute("rList", "[]");
+          } else {
+              request.setAttribute("xList", new Gson().toJson(bean.getX()));
+              request.setAttribute("yList", new Gson().toJson(bean.getY()));
+              request.setAttribute("rList", new Gson().toJson(bean.getR()));
+          }
+      %>*/
         let x = (<%=request.getAttribute("xList")%>)
         let y = (<%=request.getAttribute("yList")%>)
         let r = (<%=request.getAttribute("rList")%>)
