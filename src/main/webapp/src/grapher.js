@@ -11,7 +11,6 @@ const rSize = 60
 const figureColor = '#39f'
 
 
-const baseUrl = "http://localhost:8080/WILDFLY_LAB2-1.0-SNAPSHOT"
 function drawGraph() {
 
     drawFigure()
