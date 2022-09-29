@@ -154,10 +154,7 @@ canvas.onmousedown = (e) => {
 
     form['y'].value = y;
 
-    if(x > 2  || x <-2) {
-        alert("X must be from -2 to 2")
-        return
-    }
+
     form.submit()
 
 
