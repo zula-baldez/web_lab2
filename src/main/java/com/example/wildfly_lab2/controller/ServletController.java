@@ -2,7 +2,6 @@ package com.example.wildfly_lab2.controller;
 
 import com.example.wildfly_lab2.model.TableBean;
 import com.example.wildfly_lab2.util.RequestParamsConfigurer;
-import com.example.wildfly_lab2.util.TableHandler;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -30,13 +29,15 @@ public class ServletController extends HttpServlet {
             requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
         }
         requestParamsConfigurer.configParams(tableBean, request);
+
         requestDispatcher.forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
-        requestDispatcher.forward(request, response);
-
+        requestDispatcher.forward(request, response);/*
+        response.sendRedirect(getServletContext().getContextPath() + "/");
+*/
     }
 
 

@@ -17,16 +17,16 @@ function hideWarning(elem, txt) {
 
 
 }
-function validateX(event) {
+function validateY(event) {
     const reg = new RegExp("^[+-]?([0-9]*[.,])?[0-9]+$")
 
 
-    let x = parseFloat(yInput.value);
-    if(Number.isNaN(x) || x <= -3 || x >= 3 || !reg.test(yInput.value)) {
-        warning(yElementWarning, "X must be from -3 to 3")
+    let y = parseFloat(yInput.value);
+    if(Number.isNaN(y) || y <= -3 || y >= 3 || !reg.test(yInput.value)) {
+        warning(yElementWarning, "Y must be from -3 to 3")
     } else {
         hideWarning(yElementWarning, "")
     }
 }
-yInput.addEventListener('input', validateX)
+yInput.addEventListener('input', validateY)
 yInput.dispatchEvent(new Event('input'))

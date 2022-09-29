@@ -294,17 +294,7 @@
 <script type="text/javascript">
     function drawDots() {
         <%@include file="./src/grapher.js"%>
-        /*        <%
-          if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
-              request.setAttribute("xList", "[]");
-              request.setAttribute("yList", "[]");
-              request.setAttribute("rList", "[]");
-          } else {
-              request.setAttribute("xList", new Gson().toJson(bean.getX()));
-              request.setAttribute("yList", new Gson().toJson(bean.getY()));
-              request.setAttribute("rList", new Gson().toJson(bean.getR()));
-          }
-      %>*/
+
         let x = (<%=request.getAttribute("xList")%>)
         let y = (<%=request.getAttribute("yList")%>)
         let r = (<%=request.getAttribute("rList")%>)

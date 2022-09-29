@@ -169,6 +169,8 @@ canvas.onmousedown = (e) => {
         return
     }
     form.submit()
+
+
 }
 
 drawGraph()

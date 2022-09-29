@@ -51,8 +51,12 @@ public class ServletAreaCheck extends HttpServlet {
                 Long.toString((System.nanoTime() - startTimeInNano)/1000),
                 simpleDateFormat.format(startTime));
         requestParamsConfigurer.configParams(tableBean, request);
-        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect(getServletContext().getContextPath() + "/");
+
+
+
+/*        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
+        requestDispatcher.forward(request, response);*/
     }
 
     public boolean checkHit(double x, double y, double r) {
@@ -79,5 +83,3 @@ public class ServletAreaCheck extends HttpServlet {
     }
 
 }
-
-
