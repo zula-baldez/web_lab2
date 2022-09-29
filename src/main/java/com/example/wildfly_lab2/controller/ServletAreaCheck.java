@@ -4,7 +4,6 @@ import com.example.wildfly_lab2.model.TableBean;
 import com.example.wildfly_lab2.util.RequestParamsConfigurer;
 
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,7 +50,7 @@ public class ServletAreaCheck extends HttpServlet {
                 Long.toString((System.nanoTime() - startTimeInNano)/1000),
                 simpleDateFormat.format(startTime));
         requestParamsConfigurer.configParams(tableBean, request);
-        response.sendRedirect(getServletContext().getContextPath() + "/");
+        response.sendRedirect(getServletContext().getContextPath() + "/?show_res=1");
 
 
 

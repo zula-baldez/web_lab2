@@ -25,6 +25,11 @@ public class ServletController extends HttpServlet {
         RequestDispatcher requestDispatcher;
         if (request.getParameter("r") != null || request.getParameter("x") != null || request.getParameter("y") != null) {
             requestDispatcher = getServletContext().getNamedDispatcher("ServletAreaCheck");
+
+
+        } else if (request.getParameter("show_res") != null) {
+            requestDispatcher = getServletContext().getRequestDispatcher("/result.jsp");
+
         } else {
             requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
         }

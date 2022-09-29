@@ -244,43 +244,7 @@
             <button id="form-submit" type="submit" class="button">Send</button>
         </div>
     </form>
-    <div id="results" class="table">
-        <h1>Results</h1>
-        <table>
-            <tr>
-                <td>Attempt</td>
-                <td>X</td>
-                <td>Y</td>
-                <td>R</td>
-                <td>Result</td>
-                <td>Work time(in microseconds)</td>
-                <td>Start time</td>
-            </tr>
 
-<%--            <%!
-                String printTable(TableBean tableBean) {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    if (tableBean != null)
-                        for (int i = 0; i < tableBean.getHit().size(); i++) {
-                            stringBuilder.append("<tr>");
-                            stringBuilder.append("<td>").append(i + 1).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getX().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getY().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getR().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getHit().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getWorkTime().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getStartTime().get(i)).append("</td>");
-                            stringBuilder.append("</tr>");
-                        }
-                    return stringBuilder.toString();
-                }
-            %>
-            <%= printTable(bean) %>--%>
-
-
-            <%= request.getAttribute("table").toString() %>
-
-        </table>
 
 
     </div>
@@ -290,34 +254,10 @@
 
 <script type="text/javascript" src = "./src/validator.js"></script>
 
-
-<script type="text/javascript">
-    function drawDots() {
-        <%@include file="./src/grapher.js"%>
-
-        let x = (<%=request.getAttribute("xList")%>)
-        let y = (<%=request.getAttribute("yList")%>)
-        let r = (<%=request.getAttribute("rList")%>)
-        let realR = 5
-        let form = document.getElementById('form')
-        let formData = new FormData(form)
-        if (r.length !== 0) {
-            realR = r[r.length - 1]
-        }
-        if (formData.has('r')) {
-            realR = formData.get('r')
-        }
-        ctx.fillStyle = '#000'
-        for (let i = 0; i < x.length; i++) {
-            let realX = width / 2 + x[i] / (realR * 3 / 2) * width / 2
-            let realY = height / 2 - y[i] / (realR * 3 / 2) * height / 2
-            ctx.moveTo(realX, realY)
-            ctx.arc(realX, realY, 5, 0, Math.PI * 2)
-            ctx.fill()
-        }
-    }
-    drawDots()
 </script>
 
+<script type="text/javascript" src = "./src/grapher.js"></script>
+
+</script>
 
 </body>
