@@ -146,16 +146,6 @@ canvas.onmousedown = (e) => {
     let x = (e.offsetX / width) * (3 * r ) - (3 / 2) * r ;
     let y =  ((3 * r / 2 - (e.offsetY / height * (3 * r ))) * 10) / 10;
 
-    let dr = x - Math.floor(x);
-    if(x>=0) {
-        if(dr >= 0.75) x = Math.floor(x)+1;
-        else if(dr < 0.75 && dr >= 0.25) x = Math.floor(x) + 0.5
-        else x = Math.floor(x);
-    } else {
-        if(dr <= -0.75) y = Math.floor(x)-1;
-        else if(dr > -0.75 && dr <= -0.25) x = Math.floor(x) - 0.5
-        else x = Math.floor(x);
-    }
 
 
 
