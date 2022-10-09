@@ -130,6 +130,23 @@ function drawFigure() {
 
 
 }
+function drawDots(x, y, r) {
+    let realR = 5
+    if (r.length !== 0) {
+        realR = r[r.length - 1]
+    }
+    ctx.fillStyle = '#000'
+    for (let i = 0; i < x.length; i++) {
+        let realX = width / 2 + x[i] / (realR * 3 / 2) * width / 2
+        let realY = height / 2 - y[i] / (realR * 3 / 2) * height / 2
+        ctx.moveTo(realX, realY)
+        ctx.arc(realX, realY, 5, 0, Math.PI * 2)
+        ctx.fill()
+    }
+}
+
+
+
 
 
 canvas.onmousedown = (e) => {
@@ -155,5 +172,7 @@ canvas.onmousedown = (e) => {
 
 
 }
+
+
 
 drawGraph()

@@ -222,19 +222,19 @@
 
         <div class="rInput">
             <p class="variable_name">R</p>
-            <input name="r" type="radio" value="1" id=rb1 onchange="drawDots()">
+            <input name="r" type="radio" value="1" id=rb1>
             <label for="rb1"> 1 </label>
 
-            <input name="r" type="radio" value="2" id=rb2 onchange="drawDots()">
+            <input name="r" type="radio" value="2" id=rb2>
             <label for="rb2"> 2 </label>
 
-            <input name="r" type="radio" value="3" id=rb3 onchange="drawDots()">
+            <input name="r" type="radio" value="3" id=rb3>
             <label for="rb3"> 3 </label>
 
-            <input name="r" type="radio" value="4" id=rb4 onchange="drawDots()">
+            <input name="r" type="radio" value="4" id=rb4>
             <label for="rb4"> 4 </label>
 
-            <input name="r" type="radio" value="5" id=rb5 onchange="drawDots()">
+            <input name="r" type="radio" value="5" id=rb5>
             <label for="rb5"> 5 </label>
 
         </div>
@@ -246,18 +246,11 @@
     </form>
 
 
-
-    </div>
-
 </main>
 
 
 <script type="text/javascript" src = "./src/validator.js"></script>
 
-</script>
-
 <script type="text/javascript" src = "./src/grapher.js"></script>
-
-</script>
 
 </body>

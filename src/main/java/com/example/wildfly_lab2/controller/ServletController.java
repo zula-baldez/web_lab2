@@ -40,9 +40,7 @@ public class ServletController extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
-        requestDispatcher.forward(request, response);/*
-        response.sendRedirect(getServletContext().getContextPath() + "/");
-*/
+        requestDispatcher.forward(request, response);
     }
 
 

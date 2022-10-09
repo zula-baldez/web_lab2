@@ -22,8 +22,8 @@ function validateY(event) {
 
 
     let y = parseFloat(yInput.value);
-    if(Number.isNaN(y) || y <= -3 || y >= 3 || !reg.test(yInput.value)) {
-        warning(yElementWarning, "Y must be from -3 to 3")
+    if(Number.isNaN(y) || y <= -3 || y >= 3 || !reg.test(yInput.value) || yInput.value.size > 10) {
+        warning(yElementWarning, "Y must be from -3 to 3 and less than 10 symbols")
     } else {
         hideWarning(yElementWarning, "")
     }

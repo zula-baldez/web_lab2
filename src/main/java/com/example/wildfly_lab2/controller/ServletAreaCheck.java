@@ -54,8 +54,7 @@ public class ServletAreaCheck extends HttpServlet {
 
 
 
-/*        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
-        requestDispatcher.forward(request, response);*/
+
     }
 
     public boolean checkHit(double x, double y, double r) {
