@@ -249,7 +249,6 @@
 </main>
 
 
-<script type="text/javascript" src = "./src/validator.js"></script>
 
 <%
     if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
@@ -265,8 +264,9 @@
 
 
 
-
 <script type="text/javascript">
+    <%@include file="./src/validator.js"%>
+
     function drawDot() {
         <%@include file="./src/grapher.js"%>
         let x = (<%=request.getAttribute("xList")%>)

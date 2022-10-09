@@ -61,7 +61,7 @@ public class ServletAreaCheck extends HttpServlet {
         //y = r - 2x
         if (x >= 0 && y <= r - 2*x && y >= 0) return true;
         if (x >= -r / 2 && x <= 0 && y >= 0 && y <= r) return true;
-        if (x <= 0 && y <= 0 && x*x + y*y <= r*r) return true;
+        if (x <= 0 && y <= 0 && x*x + y*y <= r*r/4) return true;
         return  false;
     }
     public boolean checkRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
