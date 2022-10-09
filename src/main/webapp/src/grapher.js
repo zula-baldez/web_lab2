@@ -135,6 +135,11 @@ function drawDots(x, y, r) {
     if (r.length !== 0) {
         realR = r[r.length - 1]
     }
+    let form = document.getElementById('form')
+    let formData = new FormData(form)
+    if (formData.has('r')) {
+        realR = formData.get('r')
+    }
     ctx.fillStyle = '#000'
     for (let i = 0; i < x.length; i++) {
         let realX = width / 2 + x[i] / (realR * 3 / 2) * width / 2

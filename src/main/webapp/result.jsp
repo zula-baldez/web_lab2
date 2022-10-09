@@ -1,4 +1,5 @@
 <%@ page import="com.google.gson.Gson" %>
+<%@ page import="com.example.wildfly_lab2.model.TableBean" %>
 <jsp:useBean id="bean" class="com.example.wildfly_lab2.model.TableBean" scope="request"/>
 
 <!DOCTYPE html>
@@ -171,87 +172,54 @@
             <canvas id="graph" width="350" height="350"></canvas>
         </div>
     </div>
-    <form id="form" method="GET" action="./">
-        <p class="variable_name">X</p>
-        <input type="hidden" id='x' name='x'>
+    <div id="results" class="table">
+        <h1>Results</h1>
+        <table>
+            <tr>
+                <td>Attempt</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>R</td>
+                <td>Result</td>
+                <td>Work time(in microseconds)</td>
+                <td>Start time</td>
+            </tr>
+
+            <%!
+                String printTable(TableBean tableBean) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    if (tableBean != null)
+                        for (int i = 0; i < tableBean.getHit().size(); i++) {
+                            stringBuilder.append("<tr>");
+                            stringBuilder.append("<td>").append(i + 1).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getX().get(i)).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getY().get(i)).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getR().get(i)).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getHit().get(i)).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getWorkTime().get(i)).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getStartTime().get(i)).append("</td>");
+                            stringBuilder.append("</tr>");
+                        }
+                    return stringBuilder.toString();
+                }
+            %>
+            <%= printTable(bean) %>
 
 
-        <button name="xButton" type="button" id="button1" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = -2;
-                        '>-2
-        </button>
-        <button name="xButton" type="button" id="button2" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = -1.5;'>-1.5
-        </button>
-        <button name="xButton" type="button" id="button3" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = -1;'>-1
-        </button>
-        <button name="xButton" type="button" id="button4" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = -0.5;'>-0.5
-        </button>
-        <button name="xButton" type="button" id="button6" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = 0'>0
-        </button>
-        <button name="xButton" type="button" id="button7" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = 0.5'>0.5
-        </button>
-        <button name="xButton" type="button" id="button8" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = 1'>1
-        </button>
-        <button name="xButton" type="button" id="button9" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = 1.5'>1.5
-        </button>
-        <button name="xButton" type="button" id="button10" class="button" onclick=
-                'xHidden = document.getElementById("x")
-                         xHidden.value = 2'>2
-        </button>
+            <%--
+                        <%= request.getAttribute("table").toString() %>
+            --%>
 
+        </table>
 
-        <p class="variable_name">Y</p>
-        <input type="text" name="y" id="yInput">
-        <p id="y-warning" class="warning"></p>
-
-
-        <div class="rInput">
-            <p class="variable_name">R</p>
-            <input name="r" type="radio" value="1" id=rb1 onchange="drawDot()">
-            <label for="rb1"> 1 </label>
-
-            <input name="r" type="radio" value="2" id=rb2 onchange="drawDot()">
-            <label for="rb2"> 2 </label>
-
-            <input name="r" type="radio" value="3" id=rb3 onchange="drawDot()">
-            <label for="rb3"> 3 </label>
-
-            <input name="r" type="radio" value="4" id=rb4 onchange="drawDot()">
-            <label for="rb4"> 4 </label>
-
-            <input name="r" type="radio" value="5" id=rb5 onchange="drawDot()">
-            <label for="rb5"> 5 </label>
-
-        </div>
-
-
-        <div>
-            <button id="form-submit" type="submit" class="button">Send</button>
-        </div>
-    </form>
-
+        <form id="form" method="GET" action="./">
+            <button>Back</button>
+        </form>
+    </div>
 
 </main>
 
-
-<script type="text/javascript" src = "./src/validator.js"></script>
-
-<%
+    <%
     if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
         request.setAttribute("xList", "[]");
         request.setAttribute("yList", "[]");
@@ -261,19 +229,22 @@
         request.setAttribute("yList", new Gson().toJson(bean.getY()));
         request.setAttribute("rList", new Gson().toJson(bean.getR()));
     }
-%>
+    %>
 
 
 
 
 <script type="text/javascript">
-    function drawDot() {
-        <%@include file="./src/grapher.js"%>
-        let x = (<%=request.getAttribute("xList")%>)
-        let y = (<%=request.getAttribute("yList")%>)
-        let r = (<%=request.getAttribute("rList")%>)
-        drawDots(x, y, r)
-    }
-    drawDot()
+
+
+    <%@include file="./src/grapher.js"%>
+
+
+    let x = (<%=request.getAttribute("xList")%>)
+    let y = (<%=request.getAttribute("yList")%>)
+    let r = (<%=request.getAttribute("rList")%>)
+    drawDots(x, y, r)
 </script>
+
+
 </body>
