@@ -1,4 +1,7 @@
 <%@ page import="com.google.gson.Gson" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.wildfly_lab2.model.Attempt" %>
+<%@ page import="java.util.stream.Collectors" %>
 <jsp:useBean id="bean" class="com.example.wildfly_lab2.model.TableBean" scope="request"/>
 
 <!DOCTYPE html>
@@ -251,14 +254,19 @@
 
 
 <%
-    if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
+    if(bean == null || bean.getAttempts().size() == 0) {
         request.setAttribute("xList", "[]");
         request.setAttribute("yList", "[]");
         request.setAttribute("rList", "[]");
     } else {
-        request.setAttribute("xList", new Gson().toJson(bean.getX()));
-        request.setAttribute("yList", new Gson().toJson(bean.getY()));
-        request.setAttribute("rList", new Gson().toJson(bean.getR()));
+        List<Double> xList = bean.getAttempts().stream().map(Attempt::getX).collect(Collectors.toList());
+        List<Double> yList = bean.getAttempts().stream().map(Attempt::getY).collect(Collectors.toList());
+        List<Double> rList = bean.getAttempts().stream().map(Attempt::getR).collect(Collectors.toList());
+
+        request.setAttribute("xList", new Gson().toJson(xList));
+        request.setAttribute("yList", new Gson().toJson(yList));
+        request.setAttribute("rList", new Gson().toJson(rList));
+
     }
 %>
 

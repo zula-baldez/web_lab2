@@ -1,5 +1,8 @@
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="com.example.wildfly_lab2.model.TableBean" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.wildfly_lab2.model.Attempt" %>
+<%@ page import="java.util.stream.Collectors" %>
 <jsp:useBean id="bean" class="com.example.wildfly_lab2.model.TableBean" scope="request"/>
 
 <!DOCTYPE html>
@@ -189,15 +192,15 @@
                 String printTable(TableBean tableBean) {
                     StringBuilder stringBuilder = new StringBuilder();
                     if (tableBean != null)
-                        for (int i = 0; i < tableBean.getHit().size(); i++) {
+                        for (int i = 0; i < tableBean.getAttempts().size(); i++) {
                             stringBuilder.append("<tr>");
                             stringBuilder.append("<td>").append(i + 1).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getX().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getY().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getR().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getHit().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getWorkTime().get(i)).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getStartTime().get(i)).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getX()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getY()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getR()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getHit()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getWorkTime()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getStartTime()).append("</td>");
                             stringBuilder.append("</tr>");
                         }
                     return stringBuilder.toString();
@@ -220,15 +223,20 @@
 </main>
 
     <%
-    if(bean == null || bean.getX() == null || bean.getY() == null || bean.getR() == null) {
-        request.setAttribute("xList", "[]");
-        request.setAttribute("yList", "[]");
-        request.setAttribute("rList", "[]");
-    } else {
-        request.setAttribute("xList", new Gson().toJson(bean.getX()));
-        request.setAttribute("yList", new Gson().toJson(bean.getY()));
-        request.setAttribute("rList", new Gson().toJson(bean.getR()));
-    }
+        if(bean == null || bean.getAttempts().size() == 0) {
+            request.setAttribute("xList", "[]");
+            request.setAttribute("yList", "[]");
+            request.setAttribute("rList", "[]");
+        } else {
+            List<Double> xList = bean.getAttempts().stream().map(Attempt::getX).collect(Collectors.toList());
+            List<Double> yList = bean.getAttempts().stream().map(Attempt::getY).collect(Collectors.toList());
+            List<Double> rList = bean.getAttempts().stream().map(Attempt::getR).collect(Collectors.toList());
+
+            request.setAttribute("xList", new Gson().toJson(xList));
+            request.setAttribute("yList", new Gson().toJson(yList));
+            request.setAttribute("rList", new Gson().toJson(rList));
+
+        }
     %>
 
 

@@ -11,15 +11,15 @@ public class TableHandler {
 
         StringBuilder stringBuilder = new StringBuilder();
         if (tableBean != null)
-            for (int i = 0; i < tableBean.getHit().size(); i++) {
+            for (int i = 0; i < tableBean.getAttempts().size(); i++) {
                 stringBuilder.append("<tr>");
                 stringBuilder.append("<td>").append(i + 1).append("</td>");
-                stringBuilder.append("<td>").append(tableBean.getX().get(i)).append("</td>");
-                stringBuilder.append("<td>").append(tableBean.getY().get(i)).append("</td>");
-                stringBuilder.append("<td>").append(tableBean.getR().get(i)).append("</td>");
-                stringBuilder.append("<td>").append(tableBean.getHit().get(i)).append("</td>");
-                stringBuilder.append("<td>").append(tableBean.getWorkTime().get(i)).append("</td>");
-                stringBuilder.append("<td>").append(tableBean.getStartTime().get(i)).append("</td>");
+                stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getX()).append("</td>");
+                stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getY()).append("</td>");
+                stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getR()).append("</td>");
+                stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getHit()).append("</td>");
+                stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getWorkTime()).append("</td>");
+                stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getStartTime()).append("</td>");
                 stringBuilder.append("</tr>");
             }
         request.setAttribute("table", stringBuilder.toString());
