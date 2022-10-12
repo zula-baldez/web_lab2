@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.wildfly_lab2.model.Attempt" %>
 <%@ page import="java.util.stream.Collectors" %>
+<%@ page import="com.example.wildfly_lab2.model.TableBean" %>
 <jsp:useBean id="bean" class="com.example.wildfly_lab2.model.TableBean" scope="request"/>
 
 <!DOCTYPE html>
@@ -241,7 +242,44 @@
             <label for="rb5"> 5 </label>
 
         </div>
+        <h1>Results</h1>
+        <table>
+            <tr>
+                <td>Attempt</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>R</td>
+                <td>Result</td>
+                <td>Work time(in microseconds)</td>
+                <td>Start time</td>
+            </tr>
 
+            <%!
+                String printTable(TableBean tableBean) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    if (tableBean != null)
+                        for (int i = 0; i < tableBean.getAttempts().size(); i++) {
+                            stringBuilder.append("<tr>");
+                            stringBuilder.append("<td>").append(i + 1).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getX()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getY()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getR()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getHit()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getWorkTime()).append("</td>");
+                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getStartTime()).append("</td>");
+                            stringBuilder.append("</tr>");
+                        }
+                    return stringBuilder.toString();
+                }
+            %>
+            <%= printTable(bean) %>
+
+
+            <%--
+                        <%= request.getAttribute("table").toString() %>
+            --%>
+
+        </table>
 
         <div>
             <button id="form-submit" type="submit" class="button">Send</button>
@@ -274,9 +312,9 @@
 
 <script type="text/javascript">
     <%@include file="./src/validator.js"%>
-
     function drawDot() {
         <%@include file="./src/grapher.js"%>
+        setOnClick()
         let x = (<%=request.getAttribute("xList")%>)
         let y = (<%=request.getAttribute("yList")%>)
         let r = (<%=request.getAttribute("rList")%>)

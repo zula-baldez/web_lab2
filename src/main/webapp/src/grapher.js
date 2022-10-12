@@ -153,29 +153,30 @@ function drawDots(x, y, r) {
 
 
 
+function setOnClick() {
+    canvas.onmousedown = (e) => {
 
-canvas.onmousedown = (e) => {
+        let form = document.getElementById('form')
+        let formData = new FormData(form)
+        if (!formData.has('r') || formData.get('r') === 0) {
+            alert('First enter R')
+            return
+        } else {
+            var r = formData.get('r')
+        }
+        let x = (e.offsetX / width) * (3 * r) - (3 / 2) * r;
+        let y = ((3 * r / 2 - (e.offsetY / height * (3 * r))) * 10) / 10;
 
-    let form = document.getElementById('form')
-    let formData = new FormData(form)
-    if (!formData.has('r') || formData.get('r') === 0) {
-        alert('First enter R')
-        return
-    } else {
-        var r = formData.get('r')
+
+        form['x'].value = x;
+
+        form['y'].value = y;
+
+
+        form.submit()
+
+
     }
-    let x = (e.offsetX / width) * (3 * r) - (3 / 2) * r;
-    let y = ((3 * r / 2 - (e.offsetY / height * (3 * r))) * 10) / 10;
-
-
-    form['x'].value = x;
-
-    form['y'].value = y;
-
-
-    form.submit()
-
-
 }
 
 

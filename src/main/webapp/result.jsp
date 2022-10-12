@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.wildfly_lab2.model.Attempt" %>
 <%@ page import="java.util.stream.Collectors" %>
+<%@ page import="java.util.ArrayList" %>
 <jsp:useBean id="bean" class="com.example.wildfly_lab2.model.TableBean" scope="request"/>
 
 <!DOCTYPE html>
@@ -191,46 +192,49 @@
             <%!
                 String printTable(TableBean tableBean) {
                     StringBuilder stringBuilder = new StringBuilder();
-                    if (tableBean != null)
-                        for (int i = 0; i < tableBean.getAttempts().size(); i++) {
-                            stringBuilder.append("<tr>");
-                            stringBuilder.append("<td>").append(i + 1).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getX()).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getY()).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getR()).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getHit()).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getWorkTime()).append("</td>");
-                            stringBuilder.append("<td>").append(tableBean.getAttempts().get(i).getStartTime()).append("</td>");
-                            stringBuilder.append("</tr>");
-                        }
+                    if (tableBean != null && tableBean.getAttempts().size() != 0) {
+                        int nLast = tableBean.getAttempts().size() - 1;
+                        stringBuilder.append("<tr>");
+                        stringBuilder.append("<td>").append(nLast + 1).append("</td>");
+                        stringBuilder.append("<td>").append(tableBean.getAttempts().get(nLast).getX()).append("</td>");
+                        stringBuilder.append("<td>").append(tableBean.getAttempts().get(nLast).getY()).append("</td>");
+                        stringBuilder.append("<td>").append(tableBean.getAttempts().get(nLast).getR()).append("</td>");
+                        stringBuilder.append("<td>").append(tableBean.getAttempts().get(nLast).getHit()).append("</td>");
+                        stringBuilder.append("<td>").append(tableBean.getAttempts().get(nLast).getWorkTime()).append("</td>");
+                        stringBuilder.append("<td>").append(tableBean.getAttempts().get(nLast).getStartTime()).append("</td>");
+                        stringBuilder.append("</tr>");
+
+                    }
                     return stringBuilder.toString();
                 }
             %>
             <%= printTable(bean) %>
 
 
-            <%--
-                        <%= request.getAttribute("table").toString() %>
-            --%>
-
         </table>
 
-        <form id="form" method="GET" action="./">
-            <button>Back</button>
-        </form>
     </div>
+    <form id="form" method="GET" action="./">
+        <button>Back</button>
+    </form>
 
 </main>
 
-    <%
+<%
         if(bean == null || bean.getAttempts().size() == 0) {
             request.setAttribute("xList", "[]");
             request.setAttribute("yList", "[]");
             request.setAttribute("rList", "[]");
         } else {
-            List<Double> xList = bean.getAttempts().stream().map(Attempt::getX).collect(Collectors.toList());
-            List<Double> yList = bean.getAttempts().stream().map(Attempt::getY).collect(Collectors.toList());
-            List<Double> rList = bean.getAttempts().stream().map(Attempt::getR).collect(Collectors.toList());
+            int nLast = bean.getAttempts().size()-1;
+            List<Double> xList = new ArrayList<>();
+            xList.add(bean.getAttempts().get(nLast).getX());
+
+            List<Double> yList = new ArrayList<>();
+            yList.add(bean.getAttempts().get(nLast).getY());
+
+            List<Double> rList = new ArrayList<>();
+            rList.add(bean.getAttempts().get(nLast).getR());
 
             request.setAttribute("xList", new Gson().toJson(xList));
             request.setAttribute("yList", new Gson().toJson(yList));
