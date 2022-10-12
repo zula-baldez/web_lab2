@@ -166,12 +166,12 @@
 <header>
     <h1>Egor Vereshchagin, P32312</h1>
     <h2>var. 6663121</h2>
+
 </header>
 <main>
     <div class="rainbow-box">
         <div class="card">
             <div id="graph-back"></div>
-
             <canvas id="graph" width="350" height="350"></canvas>
         </div>
     </div>
@@ -307,13 +307,13 @@
 
     }
 %>
-
-
-
+<script type = "text/javascript" src = "./src/validator.js"></script>
 <script type="text/javascript">
-    <%@include file="./src/validator.js"%>
+
     function drawDot() {
+
         <%@include file="./src/grapher.js"%>
+
         setOnClick()
         let x = (<%=request.getAttribute("xList")%>)
         let y = (<%=request.getAttribute("yList")%>)
