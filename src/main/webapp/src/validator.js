@@ -18,12 +18,12 @@ function hideWarning(elem, txt) {
 
 }
 function validateY(event) {
-    const reg = new RegExp("^[+-]?([0-9]*[.,])?[0-9]{0,5}$")
+    const reg = new RegExp("^[+-]?([0-9]*[.,])?[0-9]+$")
 
 
     let y = parseFloat(yInput.value);
     if(Number.isNaN(y) || y <= -3 || y >= 3 || !reg.test(yInput.value)) {
-        warning(yElementWarning, "Y must be from -3 to 3 and there should be not more 5 symbols after dot")
+        warning(yElementWarning, "Y must be from -3 to 3 and no longer than 10")
     } else {
         hideWarning(yElementWarning, "")
     }

@@ -24,8 +24,11 @@ public class ServletAreaCheck extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         long startTimeInNano = System.nanoTime();
         Date startTime = new Date();
-        if(!checkRequest(request, response)) {
+        String error = checkRequest(request, response);
+        if(error != null) {
+            response.sendRedirect(getServletContext().getContextPath() + "/?error="+"\'" + error + "\'");
             return;
+
         }
         double x;
         double y;
@@ -38,7 +41,7 @@ public class ServletAreaCheck extends HttpServlet {
             r = Double.parseDouble(request.getParameter("r"));
 
         } catch (NumberFormatException e) {
-            response.getWriter().write("please enter a number");
+            response.sendRedirect(getServletContext().getContextPath() + "/?error="+"\'"+"please enter a number" + "\'");
             return;
         }
 
@@ -64,20 +67,19 @@ public class ServletAreaCheck extends HttpServlet {
         if (x <= 0 && y <= 0 && x*x + y*y <= r*r/4) return true;
         return  false;
     }
-    public boolean checkRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String checkRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("r") == null) {
-            response.getWriter().write("Enter r first");
-            return false;
+
+            return "enter R first";
         }
         if (request.getParameter("x") == null) {
-            response.getWriter().write("Enter x first");
-            return false;
+            return "enter X first";
         }
         if (request.getParameter("y") == null) {
-            response.getWriter().write("Enter y first");
-            return false;
+
+            return "enter Y first";
         }
-        return true;
+        return null;
     }
 
 }

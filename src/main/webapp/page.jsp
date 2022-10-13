@@ -220,7 +220,7 @@
 
 
         <p class="variable_name">Y</p>
-        <input type="text" name="y" id="yInput">
+        <input type="text" name="y" id="yInput" maxlength="10">
         <p id="y-warning" class="warning"></p>
 
 
@@ -274,11 +274,6 @@
             %>
             <%= printTable(bean) %>
 
-
-            <%--
-                        <%= request.getAttribute("table").toString() %>
-            --%>
-
         </table>
 
         <div>
@@ -308,12 +303,14 @@
     }
 %>
 <script type = "text/javascript" src = "./src/validator.js"></script>
+
+
 <script type="text/javascript">
 
+    <%@include file="./src/grapher.js"%>
+
     function drawDot() {
-
-        <%@include file="./src/grapher.js"%>
-
+        drawGraph()
         setOnClick()
         let x = (<%=request.getAttribute("xList")%>)
         let y = (<%=request.getAttribute("yList")%>)
@@ -321,5 +318,11 @@
         drawDots(x, y, r)
     }
     drawDot()
+</script>
+<script type = "text/javascript" defer>
+        setTimeout(() => {
+            let error = <%=request.getParameter("error")%>
+            if(error) alert(error)
+        }, 500);
 </script>
 </body>

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 @Singleton
 public class TableBean implements Serializable {
-    private final List<Attempt> attempts = new ArrayList<>();
+    private List<Attempt> attempts = new ArrayList<>();
 
     public void addAttempt(double x, double y, double r, boolean hit, String workTime, String startTime) {
         attempts.add(new Attempt(x, y, r, hit, workTime, startTime));
@@ -17,6 +17,10 @@ public class TableBean implements Serializable {
 
     public List<Attempt> getAttempts() {
         return attempts;
+    }
+
+    public void setAttempts(List<Attempt> attempts) {
+        this.attempts = attempts;
     }
 
     @Override
