@@ -4,6 +4,7 @@ import com.example.wildfly_lab2.model.TableBean;
 import com.example.wildfly_lab2.util.RequestParamsConfigurer;
 
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +17,11 @@ import java.util.Date;
 @WebServlet(name = "ServletAreaCheck", value = "/hit_handler")
 public class ServletAreaCheck extends HttpServlet {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-    @EJB
     private TableBean tableBean;
-    @EJB
-    private RequestParamsConfigurer requestParamsConfigurer;
+    private RequestParamsConfigurer requestParamsConfigure = new RequestParamsConfigurer();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        tableBean = (TableBean) request.getAttribute("bean");
         long startTimeInNano = System.nanoTime();
         Date startTime = new Date();
         String error = checkRequest(request, response);
@@ -52,10 +52,9 @@ public class ServletAreaCheck extends HttpServlet {
                 hit,
                 Long.toString((System.nanoTime() - startTimeInNano)/1000),
                 simpleDateFormat.format(startTime));
-        requestParamsConfigurer.configParams(tableBean, request);
-        response.sendRedirect(getServletContext().getContextPath() + "/?show_res=1");
-
-
+        requestParamsConfigure.configParams(tableBean, request);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("./result.jsp");
+        requestDispatcher.forward(request, response);
 
 
     }
