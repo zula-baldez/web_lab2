@@ -20,13 +20,12 @@ public class ServletController extends HttpServlet {
         response.setContentType("text/html");
         RequestDispatcher requestDispatcher;
         requestParamsConfigurer.configParams(tableBean, request);
-        if (request.getParameter("r") != null || request.getParameter("x") != null || request.getParameter("y") != null) {
+        if (request.getAttribute("error") != null) {
+            requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
+        } else if (request.getParameter("r") != null || request.getParameter("x") != null || request.getParameter("y") != null) {
             requestDispatcher = getServletContext().getNamedDispatcher("ServletAreaCheck");
-
-
         } else {
             requestDispatcher = getServletContext().getRequestDispatcher("/page.jsp");
-
         }
         requestDispatcher.forward(request, response);
     }

@@ -321,8 +321,8 @@
 </script>
 <script type = "text/javascript" defer>
         setTimeout(() => {
-            let error = <%=request.getParameter("error")%>
-            if(error) alert(error)
+            let error = '<%=request.getAttribute("error")%>'
+            if(error != 'null') alert(error)
         }, 500);
 </script>
 </body>

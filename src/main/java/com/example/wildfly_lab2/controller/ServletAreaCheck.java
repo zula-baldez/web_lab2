@@ -17,16 +17,19 @@ import java.util.Date;
 @WebServlet(name = "ServletAreaCheck", value = "/hit_handler")
 public class ServletAreaCheck extends HttpServlet {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-    private TableBean tableBean;
     private RequestParamsConfigurer requestParamsConfigure = new RequestParamsConfigurer();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        tableBean = (TableBean) request.getAttribute("bean");
+        TableBean tableBean = (TableBean) request.getAttribute("bean");
         long startTimeInNano = System.nanoTime();
         Date startTime = new Date();
         String error = checkRequest(request, response);
+        RequestDispatcher errDisp = getServletContext().getNamedDispatcher("ServletController");
+
         if(error != null) {
-            response.sendRedirect(getServletContext().getContextPath() + "/?error="+"\'" + error + "\'");
+            request.setAttribute("error", error);
+
+            errDisp.forward(request, response);
             return;
 
         }
@@ -41,7 +44,8 @@ public class ServletAreaCheck extends HttpServlet {
             r = Double.parseDouble(request.getParameter("r"));
 
         } catch (NumberFormatException e) {
-            response.sendRedirect(getServletContext().getContextPath() + "/?error="+"\'"+"please enter a number" + "\'");
+            request.setAttribute("error", "please enter a number");
+            errDisp.forward(request, response);
             return;
         }
 
