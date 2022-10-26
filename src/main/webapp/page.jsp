@@ -7,7 +7,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<%@ taglib prefix = "d" uri = "/WEB-INF/tags.tld" %>
+<%--
+<%@ taglib prefix="d" uri="/customTag" %>
+--%>
 <head>
     <title>weblab_2</title>
     <style>
@@ -243,6 +246,8 @@
 
         </div>
         <h1>Results</h1>
+        <d:Egor collection="${bean.attempts}" x="true" r = "true"/>
+
         <table>
             <tr>
                 <td>Attempt</td>
